@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matching Colors Game</title>
+    <style>
+        .color-box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Matching Colors Game</h1>
+    <p>Match the color to its name:</p>
+    <div id="game">
+        <div class="color-box" data-color="red" onclick="selectColor(this)"></div>
+        <div class="color-box" data-color="blue" onclick="selectColor(this)"></div>
+        <div class="color-box" data-color="green" onclick="selectColor(this)"></div>
+        <div class="color-box" data-color="yellow" onclick="selectColor(this)"></div>
+        <div class="color-box" data-color="purple" onclick="selectColor(this)"></div>
+    </div>
+    <p id="message"></p>
+    <script>
+        let selectedColor = null;
+
+        function selectColor(colorBox) {
+            if (!selectedColor) {
+                selectedColor = colorBox;
+                colorBox.style.backgroundColor = colorBox.dataset.color;
+            } else {
+                if (selectedColor.dataset.color === colorBox.dataset.color) {
+                    document.getElementById("message").textContent = "Matched!";
+                    colorBox.style.backgroundColor = selectedColor.style.backgroundColor = colorBox.dataset.color;
+                } else {
+                    document.getElementById("message").textContent = "Not a match!";
+                    setTimeout(() => {
+                        colorBox.style.backgroundColor = selectedColor.style.backgroundColor = "";
+                        selectedColor = null;
+                        document.getElementById("message").textContent = "";
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
